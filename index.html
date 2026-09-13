@@ -488,6 +488,24 @@
       syncUrl();
     }
 
+    // 날짜 연산 헬퍼: 타임존/월말 롤오버 무결점 보정
+    function subtractMonthsAccurate(y, m, d, subMonths) {
+      let targetM = m - subMonths;
+      let targetY = y;
+      while (targetM <= 0) {
+        targetM += 12;
+        targetY -= 1;
+      }
+      const maxDaysInMonth = new Date(targetY, targetM, 0).getDate();
+      const targetD = Math.min(d, maxDaysInMonth);
+      return {
+        y: targetY,
+        m: targetM,
+        d: targetD,
+        str: `${targetY}-${String(targetM).padStart(2, '0')}-${String(targetD).padStart(2, '0')}`
+      };
+    }
+
     function calculateDDay() {
       const expInput = document.getElementById('expiryDate').value;
       if (!expInput) {
@@ -498,23 +516,27 @@
         return;
       }
 
-      const expiry = new Date(expInput);
+      const parts = expInput.split('-').map(Number);
+      if (parts.length !== 3 || isNaN(parts[0]) || isNaN(parts[1]) || isNaN(parts[2])) {
+        return;
+      }
+      const [expY, expM, expD] = parts;
+
+      // 주택임대차보호법 기준: 만료 6개월 전부터 2개월 전까지
+      const deadline = subtractMonthsAccurate(expY, expM, expD, 2);
+      const windowStart = subtractMonthsAccurate(expY, expM, expD, 6);
+
+      // 로컬 자정 기준 정확한 D-Day 산출 (UTC 변환 오차 0%)
       const today = new Date();
-      today.setHours(0,0,0,0);
+      today.setHours(0, 0, 0, 0);
+      const targetDate = new Date(deadline.y, deadline.m - 1, deadline.d);
+      targetDate.setHours(0, 0, 0, 0);
 
-      // Deadline: 2 months before expiry date
-      const deadline = new Date(expiry);
-      deadline.setMonth(deadline.getMonth() - 2);
+      const diffTime = targetDate.getTime() - today.getTime();
+      const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
 
-      // 6 months before expiry date
-      const windowStart = new Date(expiry);
-      windowStart.setMonth(windowStart.getMonth() - 6);
-
-      const diffDays = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
-      const deadStr = deadline.toISOString().split('T')[0];
-
-      document.getElementById('notifyDeadlineText').innerText = `통보 마감일: ${deadStr} (만료 2개월 전)`;
-      document.getElementById('ddayExplain').innerText = `통보 가능 기간: ${windowStart.toISOString().split('T')[0]} ~ ${deadStr}`;
+      document.getElementById('notifyDeadlineText').innerText = `통보 마감일: ${deadline.str} (만료 2개월 전)`;
+      document.getElementById('ddayExplain').innerText = `통보 가능 기간: ${windowStart.str} ~ ${deadline.str}`;
 
       const badge = document.getElementById('ddayBadge');
       if (diffDays > 0) {
@@ -637,6 +659,10 @@
           return;
         }
         
+        // Safe: only format if explicitly currency/money
+        const isMoney = name.includes('deposit') || name.includes('wolse') || name.includes('rent') || name.includes('price') || name.includes('money') || name.includes('cost');
+        if (!isMoney) return;
+
         // Listen to input
         input.addEventListener('input', function(e) {
           if (this.type === 'number') return; // native number handles own UI
