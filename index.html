@@ -612,13 +612,13 @@
 
       const badge = document.getElementById('ddayBadge');
       if (diffDays > 0) {
-        badge.innerText = `D-${diffDays}`;
+        badge.textContent = `D-${diffDays}`;
         badge.className = 'inline-block px-3 py-1.5 rounded-xl text-xs font-black bg-teal-100 text-teal-800';
       } else if (diffDays === 0) {
-        badge.innerText = 'D-Day (오늘 마감)';
+        badge.textContent = 'D-Day (오늘 마감)';
         badge.className = 'inline-block px-3 py-1.5 rounded-xl text-xs font-black bg-rose-600 text-white animate-pulse';
       } else {
-        badge.innerText = `기한 경과 (${Math.abs(diffDays)}일 지남)`;
+        badge.textContent = `기한 경과 (${Math.abs(diffDays)}일 지남)`;
         badge.className = 'inline-block px-3 py-1.5 rounded-xl text-xs font-black bg-amber-100 text-amber-800';
       }
     }
