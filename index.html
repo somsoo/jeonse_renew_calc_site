@@ -8,7 +8,7 @@
 
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>전세 5% 계산기 | 임대차 계약갱신청구권 및</title>
+<title>전세 5% 계산기 | 계약갱신청구권 인상액</title>
 <meta content="종전 보증금을 입력하면 주택임대차보호법 5% 인상 상한액과 전월세 전환 월세, 계약갱신 통보기한을 즉시 계산합니다." name="description"/>
 <meta content="전세 5% 계산기, 계약갱신청구권, 전월세전환율 계산, 임대차 3법, 전세보증금 인상한도, 묵시적 갱신" name="keywords"/>
 <meta content="index, follow" name="robots"/>
@@ -17,11 +17,11 @@
 <meta content="ko_KR" property="og:locale"/>
 <meta content="https://jeonse-renew.enjoy-onepage.com/" property="og:url"/>
 <meta content="전세 5% 계산기" property="og:site_name"/>
-<meta content="전세 5% 계산기 | 임대차 계약갱신청구권 및" property="og:title"/>
+<meta content="전세 5% 계산기 | 계약갱신청구권 인상액" property="og:title"/>
 <meta content="종전 보증금을 입력하면 주택임대차보호법 5% 인상 상한액과 전월세 전환 월세, 계약갱신 통보기한을 즉시 계산합니다." property="og:description"/>
 <meta content="https://jeonse-renew.enjoy-onepage.com/og-image.png" property="og:image"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="전세 5% 계산기 | 임대차 계약갱신청구권 및" name="twitter:title"/>
+<meta content="전세 5% 계산기 | 계약갱신청구권 인상액" name="twitter:title"/>
 <meta content="종전 보증금을 입력하면 주택임대차보호법 5% 인상 상한액과 전월세 전환 월세, 계약갱신 통보기한을 즉시 계산합니다." name="twitter:description"/>
 <meta content="https://jeonse-renew.enjoy-onepage.com/og-image.png" name="twitter:image"/>
 <link href="/favicon.ico" rel="icon" type="image/x-icon"/>
@@ -515,9 +515,9 @@
       const convRate = parseNum(document.getElementById('convRate').value) / 100;
 
       // Rate text
-      document.getElementById('rateText').innerText = (rate * 100).toFixed(1) + '% ' + (rate === 0.05 ? '(법정 최대)' : '');
-      document.getElementById('depositFormatted').innerText = formatWon(prevDeposit);
-      document.getElementById('convRateText').innerText = (convRate * 100).toFixed(2) + '%';
+      document.getElementById('rateText').textContent = (rate * 100).toFixed(1) + '% ' + (rate === 0.05 ? '(법정 최대)' : '');
+      document.getElementById('depositFormatted').textContent = formatWon(prevDeposit);
+      document.getElementById('convRateText').textContent = (convRate * 100).toFixed(2) + '%';
 
       // 5% capped deposit
       const maxCappedDeposit = prevDeposit * (1 + rate);
@@ -533,27 +533,27 @@
 
       // Update UI Cards
       if (contractType === 'jeonse') {
-        document.getElementById('resTitle').innerText = '갱신 후 전세 보증금 상한선';
-        document.getElementById('resNewDeposit').innerText = Math.round(maxCappedDeposit).toLocaleString('ko-KR');
-        document.getElementById('resSubCardLabel').innerText = '월세 전환 시';
-        document.getElementById('resSubCardValue').innerText = formatWon(monthlyWolse);
+        document.getElementById('resTitle').textContent = '갱신 후 전세 보증금 상한선';
+        document.getElementById('resNewDeposit').textContent = Math.round(maxCappedDeposit).toLocaleString('ko-KR');
+        document.getElementById('resSubCardLabel').textContent = '월세 전환 시';
+        document.getElementById('resSubCardValue').textContent = formatWon(monthlyWolse);
       } else {
-        document.getElementById('resTitle').innerText = '전환 후 법정 상한 월세 (보증금 ' + formatWon(newDepositForWolse) + ')';
-        document.getElementById('resNewDeposit').innerText = Math.round(monthlyWolse).toLocaleString('ko-KR');
-        document.getElementById('resSubCardLabel').innerText = '유지 보증금';
-        document.getElementById('resSubCardValue').innerText = formatWon(newDepositForWolse);
+        document.getElementById('resTitle').textContent = '전환 후 법정 상한 월세 (보증금 ' + formatWon(newDepositForWolse) + ')';
+        document.getElementById('resNewDeposit').textContent = Math.round(monthlyWolse).toLocaleString('ko-KR');
+        document.getElementById('resSubCardLabel').textContent = '유지 보증금';
+        document.getElementById('resSubCardValue').textContent = formatWon(newDepositForWolse);
       }
 
-      document.getElementById('resIncAmount').innerText = '+' + formatWon(incAmount);
-      document.getElementById('resRateApplied').innerText = (rate * 100).toFixed(1) + '%';
+      document.getElementById('resIncAmount').textContent = '+' + formatWon(incAmount);
+      document.getElementById('resRateApplied').textContent = (rate * 100).toFixed(1) + '%';
 
       // Table
-      document.getElementById('tablePrevDep').innerText = formatWon(prevDeposit);
-      document.getElementById('tableNewDep').innerText = formatWon(maxCappedDeposit);
-      document.getElementById('tableDiffDep').innerText = '+' + formatWon(incAmount);
-      document.getElementById('tableWolseAmt').innerText = '월 ' + formatWon(monthlyWolse);
-      document.getElementById('tableWolseDiff').innerText = '+' + formatWon(monthlyWolse);
-      document.getElementById('tableRatePct').innerText = (convRate * 100).toFixed(2) + '% (상한)';
+      document.getElementById('tablePrevDep').textContent = formatWon(prevDeposit);
+      document.getElementById('tableNewDep').textContent = formatWon(maxCappedDeposit);
+      document.getElementById('tableDiffDep').textContent = '+' + formatWon(incAmount);
+      document.getElementById('tableWolseAmt').textContent = '월 ' + formatWon(monthlyWolse);
+      document.getElementById('tableWolseDiff').textContent = '+' + formatWon(monthlyWolse);
+      document.getElementById('tableRatePct').textContent = (convRate * 100).toFixed(2) + '% (상한)';
 
       // D-Day calculation
       calculateDDay();
@@ -581,10 +581,10 @@
     function calculateDDay() {
       const expInput = document.getElementById('expiryDate').value;
       if (!expInput) {
-        document.getElementById('ddayBadge').innerText = '만료일 미입력';
+        document.getElementById('ddayBadge').textContent = '만료일 미입력';
         document.getElementById('ddayBadge').className = 'inline-block px-3 py-1.5 rounded-xl text-xs font-black bg-slate-100 text-slate-600';
-        document.getElementById('notifyDeadlineText').innerText = '만료 2개월 전까지 통보 필수';
-        document.getElementById('ddayExplain').innerText = '계약 만료일을 선택하면 갱신 통보 마감일이 계산됩니다.';
+        document.getElementById('notifyDeadlineText').textContent = '만료 2개월 전까지 통보 필수';
+        document.getElementById('ddayExplain').textContent = '계약 만료일을 선택하면 갱신 통보 마감일이 계산됩니다.';
         return;
       }
 
@@ -607,8 +607,8 @@
       const diffTime = targetDate.getTime() - today.getTime();
       const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
 
-      document.getElementById('notifyDeadlineText').innerText = `통보 마감일: ${deadline.str} (만료 2개월 전)`;
-      document.getElementById('ddayExplain').innerText = `통보 가능 기간: ${windowStart.str} ~ ${deadline.str}`;
+      document.getElementById('notifyDeadlineText').textContent = `통보 마감일: ${deadline.str} (만료 2개월 전)`;
+      document.getElementById('ddayExplain').textContent = `통보 가능 기간: ${windowStart.str} ~ ${deadline.str}`;
 
       const badge = document.getElementById('ddayBadge');
       if (diffDays > 0) {
