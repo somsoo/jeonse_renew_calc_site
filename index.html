@@ -267,10 +267,10 @@
 <div>
 <div class="flex justify-between items-center mb-1">
 <label class="text-xs font-bold text-slate-700" for="convRate">법정 전월세 전환율</label>
-<span class="text-xs font-bold text-teal-600" id="convRateText">5.25%</span>
+<span class="text-xs font-bold text-teal-600" id="convRateText">5.00%</span>
 </div>
-<input class="w-full accent-teal-600" id="convRate" max="7.0" min="3.0" step="0.05" type="range" value="5.25"/>
-<div class="text-[10px] text-slate-400 mt-0.5">* 기준금리(3.25%) + 대통령령 2.0% = 5.25% (현재 법정 상한)</div>
+<input class="w-full accent-teal-600" id="convRate" max="7.0" min="3.0" step="0.05" type="range" value="5.00"/>
+<div class="text-[10px] text-slate-400 mt-0.5">* 한국은행 기준금리 연 3.00%(2026.10.22 동결) + 2.0%p = 5.00% (현재 법정 상한)</div>
 </div>
 </div>
 <!-- 계약 만료일 (D-Day 계산) -->
@@ -309,7 +309,7 @@
 </div>
 <div class="bg-white/10 rounded-xl p-2.5 backdrop-blur-sm">
 <div class="text-[10px] text-teal-100 font-medium" id="resSubCardLabel">월세 전환 시</div>
-<div class="text-sm font-bold text-teal-200 mt-0.5" id="resSubCardValue">월 940,625원</div>
+<div class="text-sm font-bold text-teal-200 mt-0.5" id="resSubCardValue">월 895,833원</div>
 </div>
 </div>
 </div>
@@ -352,13 +352,13 @@
 <tr>
 <td class="py-3 px-4 font-semibold text-slate-900">월세 전환(보증금 1억 유지 시)</td>
 <td class="py-3 px-4">0원</td>
-<td class="py-3 px-4 font-bold text-cyan-600" id="tableWolseAmt">월 940,625원</td>
-<td class="py-3 px-4 text-right font-bold text-cyan-600" id="tableWolseDiff">+940,625원</td>
+<td class="py-3 px-4 font-bold text-cyan-600" id="tableWolseAmt">월 895,833원</td>
+<td class="py-3 px-4 text-right font-bold text-cyan-600" id="tableWolseDiff">+895,833원</td>
 </tr>
 <tr>
 <td class="py-3 px-4 font-semibold text-slate-900">법정 전월세 전환율</td>
 <td class="py-3 px-4 text-slate-400">-</td>
-<td class="py-3 px-4" id="tableRatePct">5.25% (상한)</td>
+<td class="py-3 px-4" id="tableRatePct">5.00% (상한)</td>
 <td class="py-3 px-4 text-right text-slate-500">기준금리+2%</td>
 </tr>
 </tbody>
@@ -464,6 +464,9 @@
       </div>
 
 
+<!-- KIRO:TOPIC-LINKS START -->
+<section style="max-width:760px;margin:24px auto;padding:0 16px"><h2 style="font-size:1.1rem;font-weight:800;margin:0 0 8px">📌 자세한 안내</h2><a href="/contract-renewal-right.html" style="display:block;padding:10px 12px;margin:6px 0;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#1e293b;font-weight:600;text-decoration:none">계약갱신청구권 총정리: 언제, 몇 번, 얼마까지 →</a><a href="/jeonse-wolse-conversion.html" style="display:block;padding:10px 12px;margin:6px 0;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#1e293b;font-weight:600;text-decoration:none">전월세전환율: 보증금을 월세로 바꿀 때 상한 5.0% →</a><a href="/implied-renewal.html" style="display:block;padding:10px 12px;margin:6px 0;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#1e293b;font-weight:600;text-decoration:none">묵시적 갱신: 아무 말 없이 계약이 연장되면 →</a></section>
+<!-- KIRO:TOPIC-LINKS END -->
 <footer class="border-t border-slate-200 bg-white py-8 px-4 text-center">
 <div class="max-w-4xl mx-auto text-xs text-slate-500 space-y-3">
 <div class="flex flex-wrap justify-center gap-4 text-xs font-medium">
