@@ -1,0 +1,19 @@
+{
+ "app": "jeonse_renew_calc_site",
+ "host": "jeonse-renew.enjoy-onepage.com",
+ "watch": false,
+ "status": "unverified",
+ "checked": "",
+ "soft_days": 60,
+ "hard_days": 120,
+ "grace_days": 31,
+ "hide": [],
+ "pages": [
+  "contract-renewal-right.html",
+  "implied-renewal.html",
+  "index.html",
+  "jeonse-wolse-conversion.html"
+ ],
+ "values": {},
+ "sources": {}
+}
