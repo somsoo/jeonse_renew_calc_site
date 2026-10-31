@@ -1,11 +1,12 @@
 {
  "app": "jeonse_renew_calc_site",
+ "name": "전세 5% 계산기",
  "host": "jeonse-renew.enjoy-onepage.com",
- "watch": false,
- "status": "unverified",
- "checked": "",
- "soft_days": 60,
- "hard_days": 120,
+ "watch": true,
+ "status": "ok",
+ "checked": "2026-11-01",
+ "soft_days": 45,
+ "hard_days": 90,
  "grace_days": 31,
  "hide": [],
  "pages": [
@@ -14,6 +15,98 @@
   "index.html",
   "jeonse-wolse-conversion.html"
  ],
- "values": {},
- "sources": {}
+ "sources": {
+  "bok": {
+   "type": "bok",
+   "label": "한국은행 기준금리 표",
+   "cadence": "daily",
+   "url": "https://www.bok.or.kr/portal/singl/baseRate/list.do?dataSeCd=01&menuNo=200643"
+  },
+  "act": {
+   "type": "law",
+   "name": "주택임대차보호법",
+   "label": "주택임대차보호법",
+   "cadence": "weekly",
+   "articles": [
+    "제6조",
+    "제6조의2",
+    "제6조의3",
+    "제7조",
+    "제7조의2"
+   ]
+  },
+  "decree": {
+   "type": "law",
+   "name": "주택임대차보호법시행령",
+   "label": "주택임대차보호법 시행령",
+   "cadence": "weekly",
+   "articles": [
+    "제9조"
+   ]
+  }
+ },
+ "values": {
+  "base_rate": {
+   "v": 3.0,
+   "label": "한국은행 기준금리",
+   "unit": "%",
+   "src": "bok",
+   "pick": "rate",
+   "min": 0,
+   "max": 7.75,
+   "max_ratio": 4,
+   "show": "pct2"
+  },
+  "base_rate_since": {
+   "v": "2026-08-27",
+   "label": "기준금리 변경일",
+   "src": "bok",
+   "pick": "date",
+   "show": "date"
+  },
+  "conv_add": {
+   "v": 2.0,
+   "label": "월차임 전환 가산 이율(시행령 제9조 제2항)",
+   "unit": "%p",
+   "src": "decree",
+   "find": "“대통령령으로 정하는 이율”이란 연 (\\d+(?:\\.\\d+)?)퍼센트를 말한다",
+   "near": "대통령령으로 정하는 이율",
+   "min": 0,
+   "max": 6,
+   "show": "pct1"
+  },
+  "conv_cap": {
+   "v": 10.0,
+   "label": "월차임 전환율 상한 비율(시행령 제9조 제1항, 연 1할)",
+   "unit": "%",
+   "src": "decree",
+   "find": "“대통령령으로 정하는 비율”이란 연 (\\d+)할을 말한다",
+   "map": "x*10",
+   "near": "대통령령으로 정하는 비율",
+   "min": 5,
+   "max": 20,
+   "show": "pct0"
+  },
+  "renew_cap": {
+   "v": 5.0,
+   "label": "보증금·차임 증액 상한(법 제7조 제2항)",
+   "unit": "%",
+   "src": "act",
+   "find": "증액청구는 약정한 차임이나 보증금의 (\\d+)분의 1의 금액을 초과하지 못한다",
+   "map": "100/x",
+   "near": "분의 1의 금액",
+   "min": 1,
+   "max": 20,
+   "show": "pct0"
+  }
+ },
+ "templates": {
+  "jeonse-wolse-conversion.html": {
+   "title": "전월세전환율 {{_checked|y}} | 상한 {{=min(base_rate+conv_add,conv_cap)|pctx}} 계산법과 월세 환산표",
+   "description": "{{_checked|ym}} 기준 법정 전월세전환율 상한은 연 {{=min(base_rate+conv_add,conv_cap)|pctx}}(기준금리 {{base_rate|pct2}} + {{conv_add|pctx}}p)입니다. 계산식, 보증금별 월세 환산표, 적용되는 경우와 아닌 경우를 정리했습니다.",
+   "ld_headline": "전월세전환율: 보증금을 월세로 바꿀 때 상한 {{=min(base_rate+conv_add,conv_cap)|pctx}}",
+   "ld_description": "{{_checked|ym}} 기준 법정 전월세전환율 상한은 연 {{=min(base_rate+conv_add,conv_cap)|pctx}}(기준금리 {{base_rate|pct2}} + {{conv_add|pctx}}p)입니다. 계산식, 보증금별 월세 환산표, 적용되는 경우와 아닌 경우를 정리했습니다.",
+   "ld_dateModified": "{{_checked|raw}}"
+  }
+ }
 }

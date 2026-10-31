@@ -150,7 +150,7 @@
   .ad-bottom ins { min-height: 280px !important; }
 </style>
 <!-- KIRO:VALUES START -->
-<script type="application/json" id="kiro-values">{"app":"jeonse_renew_calc_site","soft_days":60,"hard_days":120,"grace_days":31,"status":"unverified","values":{}}</script>
+<script type="application/json" id="kiro-values">{"app":"jeonse_renew_calc_site","checked":"2026-11-01","soft_days":45,"hard_days":90,"grace_days":31,"status":"ok","values":{"base_rate":3.0,"base_rate_since":"2026-08-27","conv_add":2.0,"conv_cap":10.0,"renew_cap":5.0}}</script>
 <script>/* Kiro value guard v1 (2026-11-01). Values come from #kiro-values, written by the home server's value watcher.
    window.KIRO_V = values in force today (a scheduled "next" set applies from its date).
    Elements carrying data-v (value or =expression) and data-f (format) are re-rendered from those values;
@@ -396,8 +396,8 @@
 <label class="text-xs font-bold text-slate-700" for="convRate">법정 전월세 전환율</label>
 <span class="text-xs font-bold text-teal-600" id="convRateText">5.00%</span>
 </div>
-<input class="w-full accent-teal-600" id="convRate" max="7.0" min="3.0" step="0.05" type="range" value="5.00"/>
-<div class="text-[10px] text-slate-400 mt-0.5">* 한국은행 기준금리 연 3.00%(2026.10.22 동결) + 2.0%p = 5.00% (현재 법정 상한)</div>
+<input class="w-full accent-teal-600" id="convRate" max="10.0" min="1.0" step="0.05" type="range" value="5.00"/>
+<div class="text-[10px] text-slate-400 mt-0.5">* 한국은행 기준금리 연 <span data-v="base_rate" data-f="pct2">3.00%</span>(<span data-v="base_rate_since" data-f="date">2026년 8월 27일</span> 변경) + 연 <span data-v="conv_add" data-f="pctx">2.0%</span>p = <span data-v="=min(base_rate+conv_add,conv_cap)" data-f="pct2">5.00%</span> (법정 상한, <span data-v="_checked" data-f="date">2026년 11월 1일</span> 확인)</div>
 </div>
 </div>
 <!-- 계약 만료일 (D-Day 계산) -->
@@ -436,7 +436,7 @@
 </div>
 <div class="bg-white/10 rounded-xl p-2.5 backdrop-blur-sm">
 <div class="text-[10px] text-teal-100 font-medium" id="resSubCardLabel">월세 전환 시</div>
-<div class="text-sm font-bold text-teal-200 mt-0.5" id="resSubCardValue">월 895,833원</div>
+<div class="text-sm font-bold text-teal-200 mt-0.5" id="resSubCardValue">895,833원</div>
 </div>
 </div>
 </div>
@@ -486,13 +486,13 @@
 <td class="py-3 px-4 font-semibold text-slate-900">법정 전월세 전환율</td>
 <td class="py-3 px-4 text-slate-400">-</td>
 <td class="py-3 px-4" id="tableRatePct">5.00% (상한)</td>
-<td class="py-3 px-4 text-right text-slate-500">기준금리+2%</td>
+<td class="py-3 px-4 text-right text-slate-500">기준금리+<span data-v="conv_add" data-f="pct0">2%</span>p</td>
 </tr>
 </tbody>
 </table>
 </div>
 <p class="text-[11px] text-slate-500 mt-3 leading-relaxed">
-        * 임대차보호법 제7조의2에 따라 전세를 월세로 전환할 때는 한국은행 기준금리 + 대통령령으로 정한 2.0%를 초과할 수 없습니다.
+        * 주택임대차보호법 제7조의2와 시행령 제9조에 따라 보증금을 월세로 바꿀 때는 연 <span data-v="conv_cap" data-f="pct0">10%</span>와 한국은행 기준금리 + 연 <span data-v="conv_add" data-f="pctx">2.0%</span>p 중 낮은 비율을 넘을 수 없습니다.
       </p>
 </div>
 <!-- Google AdSense Unit 1 (In-Result Slot: Centered after Table) -->
@@ -592,7 +592,7 @@
 
 
 <!-- KIRO:TOPIC-LINKS START -->
-<section style="max-width:760px;margin:24px auto;padding:0 16px"><h2 style="font-size:1.1rem;font-weight:800;margin:0 0 8px">📌 자세한 안내</h2><a href="/contract-renewal-right.html" style="display:block;padding:10px 12px;margin:6px 0;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#1e293b;font-weight:600;text-decoration:none">계약갱신청구권 총정리: 언제, 몇 번, 얼마까지 →</a><a href="/jeonse-wolse-conversion.html" style="display:block;padding:10px 12px;margin:6px 0;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#1e293b;font-weight:600;text-decoration:none">전월세전환율: 보증금을 월세로 바꿀 때 상한 5.0% →</a><a href="/implied-renewal.html" style="display:block;padding:10px 12px;margin:6px 0;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#1e293b;font-weight:600;text-decoration:none">묵시적 갱신: 아무 말 없이 계약이 연장되면 →</a></section>
+<section style="max-width:760px;margin:24px auto;padding:0 16px"><h2 style="font-size:1.1rem;font-weight:800;margin:0 0 8px">📌 자세한 안내</h2><a href="/contract-renewal-right.html" style="display:block;padding:10px 12px;margin:6px 0;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#1e293b;font-weight:600;text-decoration:none">계약갱신청구권 총정리: 언제, 몇 번, 얼마까지 →</a><a href="/jeonse-wolse-conversion.html" style="display:block;padding:10px 12px;margin:6px 0;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#1e293b;font-weight:600;text-decoration:none">전월세전환율: 보증금을 월세로 바꿀 때 상한 <span data-v="=min(base_rate+conv_add,conv_cap)" data-f="pctx">5.0%</span> →</a><a href="/implied-renewal.html" style="display:block;padding:10px 12px;margin:6px 0;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#1e293b;font-weight:600;text-decoration:none">묵시적 갱신: 아무 말 없이 계약이 연장되면 →</a></section>
 <!-- KIRO:TOPIC-LINKS END -->
 <footer class="border-t border-slate-200 bg-white py-8 px-4 text-center">
 <div class="max-w-4xl mx-auto text-xs text-slate-500 space-y-3">
@@ -762,6 +762,10 @@
 
     function initFromUrl() {
       const params = new URLSearchParams(window.location.search);
+      // 기본 전환율 = 한국은행 기준금리 + 시행령 제9조 이율 (연 1할 이하). 값은 홈서버가 관리하는 kiro-values 블록에서 온다.
+      if (!params.has('cr') && window.KIRO_V && typeof KIRO_V.base_rate === 'number') {
+        document.getElementById('convRate').value = Math.min(KIRO_V.base_rate + KIRO_V.conv_add, KIRO_V.conv_cap).toFixed(2);
+      }
       if (params.has('dp')) document.getElementById('prevDeposit').value = params.get('dp');
       if (params.has('rt')) document.getElementById('increaseRate').value = params.get('rt');
       if (params.has('nd')) document.getElementById('newDeposit').value = params.get('nd');
